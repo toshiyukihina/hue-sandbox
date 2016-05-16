@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, ButtonToolbar, Glyphicon } from 'react-bootstrap';
+import { Grid, Row, Table, Button, ButtonToolbar, Glyphicon } from 'react-bootstrap';
 import _ from 'lodash';
 import request from 'superagent';
 
@@ -11,6 +11,8 @@ class App extends React.Component {
     this.state = {
       addresses: []
     };
+
+    this.handleClickBridge = this.handleClickBridge.bind(this);
   }
 
   fetchAddresses() {
@@ -23,10 +25,13 @@ class App extends React.Component {
     })
   }
 
+  handleClickBridge(e) {
+    console.log(e);
+  }
+
   componentDidMount() {
     this.fetchAddresses()
         .then((res) => {
-          console.log(res);
           this.setState({addresses: res.body});
         })
         .catch((res) => {
@@ -35,14 +40,36 @@ class App extends React.Component {
   }
 
   render() {
-    const addressList = () => {
+    const renderAddresses = () => {
       return this.state.addresses.map((address) => {
-        return (<div key={address.id}>{address.internalipaddress}</div>)
+        return (
+          <tr key={address.id} onClick={this.handleClickBridge}>
+            <td>{address.id}</td>
+            <td>{address.internalipaddress}</td>
+          </tr>              
+        )
       });
     }
     
     return (
-      <div>{addressList()}</div>
+      <div>
+        <Grid>
+          <Row>
+            <h4>Found Hue Bridges</h4>
+            <Table responsive condensed hover>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>IP Address</th>
+                </tr>
+              </thead>
+              <tbody>
+                {renderAddresses()}
+              </tbody>            
+            </Table>
+          </Row>
+        </Grid>
+      </div>
     );
   }
   

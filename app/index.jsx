@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-require('../node_modules/bootstrap/dist/css/bootstrap.css')
+
+require('../node_modules/bootstrap/dist/css/bootstrap.css');
+require('./main.css')
 
 import App from './components/app'
 
