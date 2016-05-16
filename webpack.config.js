@@ -47,7 +47,7 @@ const common = {
 
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'Hue Party'
+      title: 'Hue Sandbox'
     })
   ]
 };
